@@ -20,7 +20,7 @@ template <class T>
 class UndoArray 
 {
 
-public:
+public: 
   /**
    * Constructor
    * @brief   The array's "skeleton" is allocated, which is just an array 
