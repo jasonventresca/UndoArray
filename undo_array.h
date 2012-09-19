@@ -205,7 +205,7 @@ public:
    * @param   (unsigned int) index
    * @return  (bool) : true if array index is initialized, else false
    */
-  bool isInitialized(unsigned int index)
+  bool isInitialized(unsigned int index) const
   {
     return m_values[index] != NULL;
   }
@@ -217,7 +217,7 @@ public:
    * @param   (void)
    * @return  (void)
    */
-  void print()
+  void print() const
   {
     unsigned int max_history = 0;
 #ifdef DEBUG_MODE
@@ -269,7 +269,7 @@ public:
    * @return  (bool) : true if rhs contains identical elements and history as
    *          *this, else false
    */
-  bool isEqualTo(const UndoArray& rhs)
+  bool isEqualTo(const UndoArray& rhs) const
   {
     if (m_size != rhs.m_size)
       return false;
