@@ -1,3 +1,5 @@
+#ifndef UNDO_ARRAY_H
+#define UNDO_ARRAY_H
 /**
  * @file    undo_array.h
  * @brief   This file contains the implementation of a custom data structure, 
@@ -166,7 +168,7 @@ public:
    */
   void undo(const unsigned int& index)
   {
-    assert(this->initialized(index));
+    assert(this->isInitialized(index));
     const unsigned int oldSize = m_historySizes[index];
     const unsigned int newSize = oldSize - 1;
    
@@ -203,7 +205,7 @@ public:
    * @param   (unsigned int) index
    * @return  (bool) : true if array index is initialized, else false
    */
-  bool initialized(unsigned int index)
+  bool isInitialized(unsigned int index)
   {
     return m_values[index] != NULL;
   }
@@ -300,4 +302,6 @@ private:
   UndoArray();
 
 };
+
+#endif // UNDO_ARRAY_H
 
