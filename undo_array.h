@@ -2,6 +2,7 @@
 #define UNDO_ARRAY_H
 /**
  * @file    undo_array.h
+ * @author  Jason Ventresca
  * @brief   This file contains the implementation of a custom data structure, 
  *          called UndoArray. It works like an ordinary fixed-array that 
  *          stores values of a specified template type, but also has the 
@@ -10,13 +11,16 @@
  *          element in the array. The provided main.cpp includes several 
  *          functions to test each of the public member functions of UndoArray.
  * @usage   UndoArray<int> example(5); // create an empty array of size 5, to 
- *          hold type int
+ *          hold type int.
  */
 
 #include <iostream>
 #include "assert.h"
 
 #define DEBUG_MODE
+
+namespace UndoArray
+{
 
 template <class T>
 class UndoArray 
@@ -157,6 +161,7 @@ public:
     ++m_historySizes[index];
     
     // add the new value onto the history for m_values[index]
+    std::cout << "set(): newValue = " << newValue << std::endl;
     m_values[index][ m_historySizes[index] - 1 ] = newValue;
   }
 
@@ -251,6 +256,7 @@ public:
       
       for (unsigned int j = 0; j < m_size; ++j)
       {
+        std::cout << "i = " << i << ", j = " << j << std::endl;
         if (m_historySizes[j] > i)
           std::cout << m_values[j][i] << "  ";
         else
@@ -290,6 +296,33 @@ public:
     return true;
   }
 
+  /**
+   * operator==
+   * @brief   Checks for equality between *this and rhs by performing deep
+   *          comparison, looking at each history value for each corresponding
+   *          index in the arrays
+   * @param   (const UndoArray&) rhs
+   * @return  (bool) : true if rhs contains identical elements and history as
+   *          *this, else false
+   */
+  bool operator==(const UndoArray& rhs) const
+  {
+    return isEqualTo(rhs);
+  }
+
+  /**
+   * operator[]
+   * @brief   Provides functionality equivalent to the subscript operator for
+   *          a standard array
+   * @param   (const unsigned int&) index
+   * @return  (T&) : a modifiable reference to the most recent value stored at
+   *          the given index
+   */
+  T& operator[](const unsigned int& index)
+  {
+    return get(index);
+  }
+
 private:
   unsigned int m_size;
   unsigned int* m_historySizes;
@@ -302,6 +335,8 @@ private:
   UndoArray();
 
 };
+
+} // namespace UndoArray
 
 #endif // UNDO_ARRAY_H
 
